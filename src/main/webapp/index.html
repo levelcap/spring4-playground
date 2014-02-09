@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Live Metrics List</title>
+    <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+    <!--[if lt IE 9]>
+    <script src="assets/lib/html5shiv/dist/html5shiv.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+
+    <div class="container">
+    
+    </div>
+
+    <!-- 3rd party -->
+    <script src="assets/lib/jquery/jquery.js"></script>
+    <script src="assets/lib/sockjs/sockjs.js"></script>
+    <script src="assets/lib/stomp/dist/stomp.js"></script>
+
+    <!-- application -->
+    <script src="metrics.js"></script>
+    <script type="text/javascript">
+      (function() {
+        var socket = new SockJS('/spring-playground/portfolio');
+        var stompClient = Stomp.over(socket);
+        var appModel = new ApplicationModel(stompClient);
+        appModel.connect();
+        appModel.pushNotification("Trade results take a 2-3 second simulated delay. Notifications will appear.");
+      })();
+    </script>
+
+  </body>
+</html>
